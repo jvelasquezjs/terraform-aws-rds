@@ -109,5 +109,6 @@ module "db_instance" {
 
   deletion_protection = "${var.deletion_protection}"
 
-  tags = "${var.tags}"
+  tags       = "${var.tags}"
+  depends_on = "${var.depends_on}"
 }

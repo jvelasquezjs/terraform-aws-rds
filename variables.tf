@@ -274,8 +274,8 @@ variable "use_parameter_group_name_prefix" {
   default     = true
 }
 
-variable "denpends_on" {
+variable "depends_on" {
   type        = "list"
-  description = "List of dependencies to associate with the db_instance."
+  description = "List of dependencies."
   default     = []
 }

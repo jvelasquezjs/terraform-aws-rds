@@ -17,6 +17,12 @@ resource "aws_iam_role_policy_attachment" "enhanced_monitoring" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonRDSEnhancedMonitoringRole"
 }
 
+resource "null_resource" "dependencies" {
+  triggers {
+    dependencies = "${join(",", var.depends_on)}"
+  }
+}
+
 resource "aws_db_instance" "this" {
   count = "${var.create && !local.is_mssql ? 1 : 0}"
 
@@ -72,7 +78,8 @@ resource "aws_db_instance" "this" {
 
   deletion_protection = "${var.deletion_protection}"
 
-  tags = "${merge(var.tags, map("Name", format("%s", var.identifier)))}"
+  tags       = "${merge(var.tags, map("Name", format("%s", var.identifier)))}"
+  depends_on = ["null_resource.dependencies"]
 }
 
 resource "aws_db_instance" "this_mssql" {
@@ -130,5 +137,6 @@ resource "aws_db_instance" "this_mssql" {
 
   deletion_protection = "${var.deletion_protection}"
 
-  tags = "${merge(var.tags, map("Name", format("%s", var.identifier)))}"
+  tags       = "${merge(var.tags, map("Name", format("%s", var.identifier)))}"
+  depends_on = ["null_resource.dependencies"]
 }

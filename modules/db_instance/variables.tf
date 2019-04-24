@@ -213,3 +213,9 @@ variable "deletion_protection" {
   description = "The database can't be deleted when this value is set to true."
   default     = false
 }
+
+variable "depends_on" {
+  type        = "list"
+  description = "List of dependencies."
+  default     = []
+}
