@@ -213,9 +213,3 @@ variable "deletion_protection" {
   description = "The database can't be deleted when this value is set to true."
   default     = false
 }
-
-variable "db_instance_denpends_on" {
-  type        = "list"
-  description = "List of dependencies to associate with the db_instance."
-  default     = []
-}
